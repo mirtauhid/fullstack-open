@@ -15,8 +15,8 @@ const removeData = (id) => {
     return axios.delete(`${URL}/persons/${id}`)
 }
 
-const updateData = (id) => {
-    return axios.put(`${URL}/persons/${id}`)
+const updateData = (id, object) => {
+    return axios.put(`${URL}/persons/${id}`, object)
 }
 
 

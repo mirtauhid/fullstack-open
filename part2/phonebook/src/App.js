@@ -15,9 +15,10 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-    const check = data.find(dt => dt.name === newName)
-    if (check) {
-      personServices.updateData(check.id)
+    const person = data.find(targetPerson => targetPerson.name === newName)
+    console.log(data, person?.id)
+    if (person) {
+      personServices.updateData(person?.id, { name: newName, number: newNumber })
         .then((response) => {
           setSuccess(`Updated ${response.data.name} successfully`)
           const successMessage = document.getElementById('successMessage').style;
