@@ -17,11 +17,30 @@ const App = () => {
     event.preventDefault()
     const check = data.find(dt => dt.name === newName)
     if (check) {
-      personServices.updateData(check.id).then((response) => {
-        console.log(response.data);
-      })
+      personServices.updateData(check.id)
+        .then((response) => {
+          setSuccess(`Updated ${response.data.name} successfully`)
+          const successMessage = document.getElementById('successMessage').style;
+          successMessage.border = '3px solid green';
+          successMessage.color = 'green';
+          successMessage.backgroundColor = 'lightgrey';
+          successMessage.padding = '0px 20px';
+          successMessage.margin = '10px';
+          successMessage.borderRadius = '8px';
+          setTimeout(() => {
+            setSuccess('')
+            successMessage.border = 'none';
+            successMessage.color = 'none';
+            successMessage.backgroundColor = 'none';
+            successMessage.margin = '0px';
+            successMessage.padding = '0px';
+            successMessage.borderRadius = '0px';
+          }, 5000)
+
+
+        })
         .catch((error) => {
-          setError(`${check.name} already been removed from server`)
+          setError(error.message)
           const errorMessage = document.getElementById('errorMessage').style;
           errorMessage.border = '3px solid red';
           errorMessage.color = 'red';
@@ -67,7 +86,24 @@ const App = () => {
         })
 
         .catch((error) => {
-          console.log(error.message)
+          setError(error.message)
+          const errorMessage = document.getElementById('errorMessage').style;
+          errorMessage.border = '3px solid red';
+          errorMessage.color = 'red';
+          errorMessage.backgroundColor = 'lightgrey';
+          errorMessage.padding = '0px 20px';
+          errorMessage.margin = '10px';
+          errorMessage.borderRadius = '8px';
+          setTimeout(() => {
+            setSuccess('')
+            errorMessage.border = 'none';
+            errorMessage.color = 'none';
+            errorMessage.backgroundColor = 'none';
+            errorMessage.margin = '0px';
+            errorMessage.padding = '0px';
+            errorMessage.borderRadius = '0px';
+            errorMessage.display = 'none';
+          }, 5000)
         })
     };
   }
